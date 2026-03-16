@@ -1,7 +1,8 @@
 body{
-font-family: Arial, sans-serif;
+font-family:Arial;
 margin:0;
 background:#f4f6f8;
+transition:0.3s;
 }
 
 header{
@@ -13,14 +14,22 @@ background:#111;
 color:white;
 }
 
-header a{
+header nav a{
 color:white;
-text-decoration:none;
 margin-left:20px;
+text-decoration:none;
+}
+
+#darkModeBtn{
+background:#ff9800;
+border:none;
+padding:8px 12px;
+border-radius:5px;
+cursor:pointer;
 }
 
 .hero{
-height:70vh;
+height:80vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -32,14 +41,13 @@ text-align:center;
 }
 
 .hero h2{
-font-size:48px;
+font-size:50px;
 }
 
 .hero button{
 padding:12px 30px;
-font-size:18px;
-border:none;
 background:#ff9800;
+border:none;
 color:white;
 border-radius:5px;
 cursor:pointer;
@@ -55,6 +63,7 @@ display:flex;
 gap:30px;
 justify-content:center;
 margin-top:30px;
+flex-wrap:wrap;
 }
 
 .card{
@@ -66,14 +75,14 @@ box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 .gallery{
-display:flex;
+display:grid;
+grid-template-columns:repeat(3,1fr);
 gap:20px;
-justify-content:center;
 margin-top:30px;
 }
 
 .gallery img{
-width:300px;
+width:100%;
 border-radius:10px;
 }
 
@@ -105,4 +114,33 @@ background:#111;
 color:white;
 padding:20px;
 margin-top:40px;
+text-align:center;
+}
+
+/* animations */
+
+.fade{
+opacity:0;
+transform:translateY(20px);
+transition:1s;
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* dark mode */
+
+.dark{
+background:#121212;
+color:white;
+}
+
+.dark .card{
+background:#1e1e1e;
+}
+
+.dark header{
+background:#000;
 }

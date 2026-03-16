@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time Capsule Studio</title>
 <link rel="stylesheet" href="css/style.css">
+<script defer src="js/script.js"></script>
 </head>
 
 <body>
 
 <header>
 <h1>Time Capsule Studio</h1>
+
 <nav>
 <a href="#home">Home</a>
 <a href="#services">Services</a>
@@ -18,94 +20,92 @@
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
 </nav>
+
+<button id="darkModeBtn">🌙</button>
+
 </header>
 
-<!-- HERO SECTION -->
 <section class="hero" id="home">
-<h2>Preserve Your Memories Forever</h2>
-<p>Capture moments today that will become tomorrow's treasures.</p>
-<button onclick="document.getElementById('contact').scrollIntoView()">Book a Session</button>
+<h2 class="fade">Preserve Your Memories Forever</h2>
+<p class="fade">Capture moments today that will become tomorrow's treasures.</p>
+<button onclick="scrollContact()">Book a Session</button>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
 <h2>Our Services</h2>
 
 <div class="services">
 
-<div class="card">
+<div class="card fade">
 <h3>📸 Memory Photography</h3>
-<p>Professional photography for weddings, birthdays, and life milestones.</p>
+<p>Professional photography for weddings, birthdays and life milestones.</p>
 </div>
 
-<div class="card">
-<h3>🎥 Video Storytelling</h3>
-<p>We create cinematic documentaries of your life story.</p>
+<div class="card fade">
+<h3>🎥 Video Documentary</h3>
+<p>We create cinematic storytelling videos for families and events.</p>
 </div>
 
-<div class="card">
+<div class="card fade">
 <h3>📦 Time Capsule Creation</h3>
-<p>Preserve letters, photos, and videos for future generations.</p>
+<p>Preserve photos, letters and videos for future generations.</p>
 </div>
 
 </div>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery">
 <h2>Gallery</h2>
 
 <div class="gallery">
 
-<img src="images/1.png">
-<img src="images/2.png">
-<img src="images/3.png">
+<img src="images/2.png" class="fade">
+<img src="images/3.png" class="fade">
+<img src="images/4.png" class="fade">
 
 </div>
-
 </section>
 
-<!-- ABOUT -->
 <section id="about">
 <h2>About Us</h2>
-<p>
-Time Capsule Studio helps families preserve their most precious moments through photography, storytelling, and digital time capsules.  
-Our mission is to turn memories into a lasting legacy.
+<p class="fade">
+Time Capsule Studio helps families preserve their most precious moments through photography,
+storytelling and digital time capsules.
 </p>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
 <h2>Book a Session</h2>
 
-<form>
+<form id="bookingForm">
 
 <input type="text" placeholder="Your Name" required>
+
 <input type="email" placeholder="Your Email" required>
 
 <select required>
 <option value="">Select Service</option>
 <option>Photography</option>
 <option>Video Documentary</option>
-<option>Time Capsule</option>
+<option>Time Capsule Creation</option>
 </select>
 
 <label>Preferred Date</label>
-<input type="date">
+<input type="date" required>
 
 <label>Preferred Time</label>
-<input type="time">
+<input type="time" required>
 
 <textarea placeholder="Your Message"></textarea>
 
-<button type="submit">Send Message</button>
+<button type="submit">Send Booking</button>
 
 </form>
 
 </section>
 
 <footer>
-<p>© 2026 Time Capsule Studio</p>
+© 2026 Time Capsule Studio
 </footer>
 
 </body>
