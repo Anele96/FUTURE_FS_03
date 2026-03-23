@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" href="css/style.css">
+<script defer src="js/script.js"></script>
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+ <!-- MODE BUTTON -->
+  <button id="modeBtn" onclick="toggleMode()">🌙</button>
+  
+  <title>Time Capsule Studio</title>
+
+  
+  <nav>
+  <a href="#home" class="nav-link">Home</a>
+  <a href="#services" class="nav-link">Services</a>
+  <a href="#gallery" class="nav-link">Gallery</a>
+  <a href="#about" class="nav-link">About</a>
+  <a href="#contact" class="nav-link">Contact</a>
+</nav>
+<!-- LOGO -->
+  <img src="images/image copy 7.png" class="logo" alt="logo">
+
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <h2>Preserve Your Memories Forever</h2>
+  <p>Create timeless moments that last forever.</p>
+
+  <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    Book Now
+  </button>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services">
+  <h2>Our Services</h2>
+
+  <div class="services">
+    <div class="card">
+      <h3>Photography</h3>
+      <p>Capture your best life moments.</p>
+    </div>
+
+    <div class="card">
+      <h3>Video</h3>
+      <p>Professional video storytelling.</p>
+    </div>
+
+    <div class="card">
+      <h3>Time Capsule</h3>
+      <p>Store memories for the future.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <h2>Gallery</h2>
+
+  <div class="gallery">
+
+    <div class="gallery-item">
+      <img src="images/1.png">
+      <button onclick="toggleLike('img1','images/1.png', this)">
+        <span class="heart">🤍</span>
+      </button>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/2.png">
+      <button onclick="toggleLike('img2','images/2.png', this)">
+        <span class="heart">🤍</span>
+      </button>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/image copy 2.png">
+      <button onclick="toggleLike('img3','images/image copy 2.png', this)">
+        <span class="heart">🤍</span>
+      </button>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/image copy 3.png">
+      <button onclick="toggleLike('img4','images/image copy 3.png', this)">
+        <span class="heart">🤍</span>
+      </button>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/image copy 4.png">
+      <button onclick="toggleLike('img5','images/image copy 4.png', this)">
+        <span class="heart">🤍</span>
+      </button>
+    </div>
+
+    <div class="gallery-item">
+      <img src="images/image.png">
+      <button onclick="toggleLike('img6','images/image.png', this)">
+        <span class="heart">🤍</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <h2>About Us</h2>
+
+  <p>Time Capsule Studio helps you preserve memories through photography and video.</p>
+  <p>We turn your moments into a lasting legacy.</p>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <h2>Contact & Book</h2>
+
+  <p>📍 Durban, South Africa</p>
+  <p>📧 timecapsule@email.com</p>
+  <p>📞 +27 000 000 000</p>
+
+  <h3>Book a Session</h3>
+
+  <form id="bookingForm">
+
+    <input type="text" name="name" placeholder="Name" required>
+
+    <input type="email" name="email" placeholder="Email" required>
+
+    <select name="service" required>
+      <option value="">Select service</option>
+      <option value="Photography">Photography</option>
+      <option value="Video">Video</option>
+      <option value="Time Capsule">Time Capsule</option>
+    </select>
+
+    <input type="date" name="date" required>
+
+    <input type="time" name="time" required>
+
+    <textarea name="message" placeholder="Message"></textarea>
+
+    <button type="submit">Send Booking</button>
+
+  </form>
+</section>
+
+<footer>
+  &copy; 2026 Time Capsule Studio. All Rights Reserved.
+</footer>

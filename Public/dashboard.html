@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="css/style.css">
+<script defer src="js/dashboard.js"></script>
+</head>
+
+<body class="dark">
+
+<header>
+<h1>Dashboard</h1>
+<button id="darkModeBtn">🌙</button>
+</header>
+
+<section class="dashboard">
+
+<!-- STATS -->
+<div class="stats">
+<div class="card">📸 <h3>120</h3><p>Photos</p></div>
+<div class="card">❤️ <h3 id="likesCount">0</h3><p>Likes</p></div>
+<div class="card">💬 <h3 id="commentsCount">0</h3><p>Comments</p></div>
+</div>
+
+<!-- GALLERY -->
+<h2>Gallery</h2>
+<div class="gallery">
+<img src="images/1.png">
+<img src="images/2.png">
+<img src="images/4.png">
+</div>
+
+<!-- LIKE BUTTON -->
+<div style="margin-top:20px;">
+<button id="likeBtn">❤️ Like</button>
+</div>
+
+<!-- COMMENTS -->
+<h2>Comments</h2>
+
+<form id="commentForm">
+<input type="text" id="commentInput" placeholder="Write comment..." required>
+<button type="submit">Send</button>
+</form>
+
+<ul id="commentList"></ul>
+
+</section>
+
+</body>
+</html>

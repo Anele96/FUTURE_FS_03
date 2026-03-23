@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pro Admin Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  display: flex;
+  background: #0f172a;
+  color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #020617;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #1e293b;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.sidebar button:hover {
+  background: #334155;
+}
+
+/* TOP BAR */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #020617;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.topbar button {
+  background: red;
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+/* CARDS */
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* LIST */
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 10px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 8px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button.delete {
+  background: red;
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* PROFILE IMAGE */
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  transform: scale(1.05);
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Admin</h2>
+
+  <button onclick="showSection('dashboard')">📊 Dashboard</button>
+  <button onclick="showSection('bookings')">📅 Bookings</button>
+  <button onclick="showSection('likes')">❤️ Likes</button>
+  <button onclick="showSection('profile')">👤 Profile</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <h3>Admin Dashboard</h3>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <div class="card">
+      <h2>Overview</h2>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+  <!-- BOOKINGS -->
+  <div id="bookings" style="display:none;">
+    <div class="card">
+      <h2>Bookings</h2>
+      <ul id="bookingList"></ul>
+    </div>
+  </div>
+
+  <!-- LIKES -->
+  <div id="likes" style="display:none;">
+    <div class="card">
+      <h2>Likes</h2>
+      <ul id="likeList"></ul>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="profile" style="display:none;">
+    <div class="card">
+      <h2>
+        <img src="./images/download (1).jpeg" class="profile-img">
+        Profile
+      </h2>
+
+      <p><strong>Email:</strong> admin@gmail.com</p>
+      <p><strong>Role:</strong> Administrator</p>
+
+      <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+let chart;
+
+function showSection(section){
+  ["dashboard","bookings","likes","profile"].forEach(id=>{
+    document.getElementById(id).style.display = "none";
+  });
+
+  document.getElementById(section).style.display = "block";
+}
+
+function logout(){
+  fetch("/api/logout").then(()=>{
+    window.location.href = "/login.html";
+  });
+}
+
+async function loadData() {
+
+  const bookings = await fetch("/api/bookings").then(r=>r.json());
+  const likes = await fetch("/api/likes").then(r=>r.json());
+
+  /* BOOKINGS */
+  const bookingList = document.getElementById("bookingList");
+  bookingList.innerHTML = "";
+
+  bookings.forEach(b=>{
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <span>
+        👤 ${b.name} | 📧 ${b.email} | 🛠 ${b.service}
+      </span>
+      <button class="delete" onclick="deleteBooking('${b._id}')">Delete</button>
+    `;
+
+    bookingList.appendChild(li);
+  });
+
+  /* LIKES */
+const likeList = document.getElementById("likeList");
+likeList.innerHTML = "";
+
+likes.forEach(l=>{
+  const li = document.createElement("li");
+
+  li.innerHTML = `
+    <span style="display:flex;align-items:center;gap:10px;">
+      <img src="${l.imagePath}" style="width:50px;height:50px;border-radius:8px;">
+      ${l.userEmail}
+    </span>
+
+    <button class="delete" onclick="deleteLike('${l._id}')">Delete</button>
+  `;
+
+  likeList.appendChild(li);
+});
+  /* CHART */
+  if(chart) chart.destroy();
+
+  chart = new Chart(document.getElementById("chart"), {
+    type: "bar",
+    data: {
+      labels: ["Bookings", "Likes"],
+      datasets: [{
+        data: [bookings.length, likes.length]
+      }]
+    }
+  });
+}
+
+/* DELETE */
+async function deleteBooking(id){
+  await fetch(`/api/bookings/${id}`, { method: "DELETE" });
+  loadData();
+}
+
+async function deleteLike(id){
+  await fetch(`/api/likes/${id}`, { method: "DELETE" });
+  loadData();
+}
+
+setInterval(loadData, 5000);
+loadData();
+
+</script>
+
+</body>
+</html>

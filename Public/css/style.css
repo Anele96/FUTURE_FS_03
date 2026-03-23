@@ -1,0 +1,409 @@
+/* ===============================
+   RESET + BASE
+=================================*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+html, body {
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
+}
+
+body {
+  background: #0f172a;
+  color: white;
+  line-height: 1.6;
+  text-align: center;
+
+  padding-top: 70px;
+  padding-bottom: 20px; /* SMALL SPACE */
+
+  transition: 0.5s;
+}
+
+/* LIGHT MODE */
+body.light-mode {
+  background: #f8fafc;
+  color: #111;
+}
+
+/* ===============================
+   BACKGROUND EFFECT
+=================================*/
+body::before {
+  content: '';
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 20% 30%, #ff3c78, transparent),
+    radial-gradient(circle at 80% 70%, #00eaff, transparent);
+  opacity: 0.15;
+  animation: bgMove 12s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes bgMove {
+  from { transform: translate(0,0); }
+  to { transform: translate(-8%, -8%); }
+}
+
+/* ===============================
+   HEADER
+=================================*/
+header {
+  position: fixed;   /* FIXED at TOP */
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 20px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+
+  z-index: 1000;
+}
+
+/* TITLE */
+header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* MODE BUTTON */
+#modeBtn {
+  font-size: 20px;
+  border: none;
+  background: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* LOGO */
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* NAV */
+/* NAV LINKS */
+.nav-link {
+  position: left;
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 5px;
+}
+
+/* HOVER EFFECT */
+.nav-link:hover {
+  color: #ff3c3c;
+}
+
+/* BLOOD DROP ANIMATION */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+
+  width: 6px;
+  height: 6px;
+  background: red;
+  border-radius: 50%;
+
+  opacity: 0;
+}
+
+/* WHEN CLICKED */
+.nav-link:active::after {
+  opacity: 1;
+  animation: drip 0.8s ease-out;
+}
+
+/* DRIP KEYFRAMES */
+@keyframes drip {
+  0% {
+    top: 100%;
+    opacity: 1;
+  }
+  100% {
+    top: 60px;
+    opacity: 0;
+  }
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+
+  width: 8px;      /* bigger drop */
+  height: 8px;
+
+  background: red;
+  border-radius: 50%;
+
+  opacity: 0;
+}
+
+/* CLICK / TOUCH */
+.nav-link:active::after {
+  opacity: 1;
+  animation: deepDrip 1.2s ease-out;
+}
+
+/* DEEP DRIP ANIMATION */
+@keyframes deepDrip {
+  0% {
+    top: 100%;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+  }
+
+  100% {
+    top: 200px;   /* 🔥 DROP GOES MUCH LOWER */
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+}
+
+/* ===============================
+   HERO
+=================================*/
+.hero {
+  height: 80vh; /* slightly smaller */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+    url("../images/image copy.png") center/cover no-repeat;
+}
+
+.hero h2 {
+  font-size: 42px;
+  max-width: 800px;
+}
+
+.hero p {
+  margin-top: 15px;
+  max-width: 500px;
+  opacity: 0.8;
+}
+
+/* ===============================
+   BUTTON
+=================================*/
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: linear-gradient(90deg,#ff3c78,#00eaff);
+  color: white;
+
+  cursor: pointer;
+  transition: 0.3s;
+
+  box-shadow: 0 0 15px rgba(0,234,255,0.4);
+}
+
+button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(255,60,120,0.6);
+}
+
+/* ===============================
+   SECTIONS (CLEAN)
+=================================*/
+section {
+  padding: 40px 4%;   /* smaller */
+}
+
+section h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+/* ===============================
+   SERVICES
+=================================*/
+.services {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.card {
+  width: 260px;
+  padding: 25px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,234,255,0.3);
+}
+
+/* ===============================
+   GALLERY
+=================================*/
+.gallery {
+  display: flex;
+  gap: 20px;
+
+  overflow-x: auto;
+  padding: 20px;
+
+  scroll-snap-type: x mandatory;
+}
+
+.gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.gallery::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg,#ff3c78,#00eaff);
+  border-radius: 10px;
+}
+
+.gallery-item {
+  min-width: 280px;
+  flex: 0 0 auto;
+
+  border-radius: 18px;
+  overflow: hidden;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+
+  scroll-snap-align: center;
+  transition: 0.3s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* ===============================
+   CONTACT + BOOKING
+=================================*/
+#contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* FORM */
+#bookingForm {
+  width: 100%;
+  max-width: 450px;
+
+  margin-top: 20px;
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  text-align: left;
+}
+
+/* INPUTS */
+#bookingForm input,
+#bookingForm select,
+#bookingForm textarea {
+  width: 100%;
+  padding: 10px;
+
+  border-radius: 8px;
+  border: none;
+
+  background: #1e293b;
+  color: white;
+
+  font-size: 14px;
+}
+
+/* FOCUS */
+#bookingForm input:focus,
+#bookingForm select:focus,
+#bookingForm textarea:focus {
+  outline: 2px solid #00eaff;
+}
+
+/* TEXTAREA */
+#bookingForm textarea {
+  height: 90px;
+  resize: none;
+}
+
+/* ===============================
+   FOOTER (SMALL)
+=================================*/
+footer {
+  margin-top: 20px;
+  padding: 15px;
+
+  text-align: center;
+
+  background: rgba(255,255,255,0.05);
+}

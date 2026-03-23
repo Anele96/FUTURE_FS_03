@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lamp Login</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#0f172a;
+  transition:0.5s;
+}
+
+/* LIGHT MODE */
+body.light-on{
+  background:#fef3c7;
+}
+
+/* LAMP */
+.lamp-container{
+  text-align:center;
+}
+
+/* BULB */
+.bulb{
+  width:80px;
+  height:80px;
+  background:#444;
+  border-radius:50%;
+  margin:auto;
+  transition:0.3s;
+}
+
+/* LIGHT ON */
+body.light-on .bulb{
+  background:#fde047;
+  box-shadow:0 0 40px #fde047, 0 0 80px #fde047;
+}
+
+/* ROPE */
+.rope{
+  width:4px;
+  height:120px;
+  background:white;
+  margin:0 auto;
+  cursor:pointer;
+  position:relative;
+}
+
+.handle{
+  width:20px;
+  height:20px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  bottom:-10px;
+  left:50%;
+  transform:translateX(-50%);
+}
+
+/* ANIMATION */
+.pull{
+  animation:pullDown 0.3s ease;
+}
+
+@keyframes pullDown{
+  0%{ transform:translateY(0); }
+  50%{ transform:translateY(15px); }
+  100%{ transform:translateY(0); }
+}
+
+/* LOGIN CARD */
+.card{
+  margin-top:40px;
+  background:rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:15px;
+  backdrop-filter:blur(10px);
+  width:250px;
+
+  /* HIDDEN BY DEFAULT */
+  opacity:0;
+  transform:translateY(20px);
+  pointer-events:none;
+  transition:0.4s;
+}
+
+/* SHOW ONLY WHEN LIGHT ON */
+body.light-on .card{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:6px;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  background:#22c55e;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="lamp-container">
+
+  <!-- BULB -->
+  <div class="bulb"></div>
+
+  <!-- ROPE -->
+  <div class="rope" onclick="toggleLight(this)">
+    <div class="handle"></div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="card">
+    <h3>Login</h3>
+
+    <input type="email" placeholder="Email" id="email">
+    <input type="password" placeholder="Password" id="password">
+
+    <button onclick="login()">Login</button>
+  </div>
+
+</div>
+
+<script>
+
+let lightOn = false;
+
+function toggleLight(el){
+  el.classList.add("pull");
+
+  setTimeout(()=> el.classList.remove("pull"), 300);
+
+  lightOn = !lightOn;
+
+  document.body.classList.toggle("light-on", lightOn);
+}
+
+/* LOGIN */
+async function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("/api/login",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ email, password })
+  });
+
+  if(res.ok){
+    alert("Login success ✅");
+    window.location.href = "/admin";
+  } else {
+    alert("Login failed ❌");
+  }
+}
+
+</script>
+
+</body>
+</html>
