@@ -1,53 +1,61 @@
-// =====================
-// Navbar dynamic
-// =====================
-function getCookie(name){ const value=`; ${document.cookie}`; const parts=value.split(`; ${name}=`); if(parts.length===2) return parts.pop().split(';').shift(); }
+document.getElementById("bookingForm")?.addEventListener("submit", async (e)=>{
+  e.preventDefault();
 
-const navbar=document.getElementById('navbar');
-if(navbar){
-  const token = getCookie('token');
-  if(token){
-    navbar.innerHTML = `<a href="/#home">Home</a><a href="/services.html">Services</a><a href="/#gallery">Gallery</a><a href="/about.html">About</a><a href="/#contact">Contact</a><a href="/dashboard.html">Dashboard</a><a href="#" id="logoutBtn">Logout</a>`;
-    document.getElementById('logoutBtn').addEventListener('click', async ()=>{
-      await fetch('/logout');
-      document.cookie='token=; Max-Age=0';
-      window.location='/login.html';
+  const f = e.target;
+
+  await fetch("/api/bookings", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      name:f.name.value,
+      email:f.email.value,
+      service:f.service.value,
+      date:f.date.value,
+      time:f.time.value,
+      message:f.message.value
+    })
+  });
+
+  alert("Booking sent!");
+  f.reset();
+});
+
+/* LIKE SYSTEM */
+async function toggleLike(imageId, imagePath, btn){
+
+  try{
+    const email = prompt("Enter email:");
+    if(!email) return;
+
+    const heart = btn.querySelector(".heart");
+
+    heart.innerText = heart.innerText === "🤍" ? "❤️" : "🤍";
+
+    const res = await fetch("/api/likes", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        userEmail: email,
+        imageId,
+        imagePath
+      })
     });
-  } else {
-    navbar.innerHTML = `<a href="/#home">Home</a><a href="/services.html">Services</a><a href="/#gallery">Gallery</a><a href="/about.html">About</a><a href="/#contact">Contact</a><a href="/login.html">Login</a><a href="/register.html">Register</a>`;
+
+    if(!res.ok) throw new Error("Like failed");
+
+  }catch(err){
+    console.error(err);
+    alert("Like failed ❌");
   }
 }
+function toggleMode(){
+  document.body.classList.toggle("light-mode");
 
-// =====================
-// Booking form
-// =====================
-const bookingForm = document.getElementById('bookingForm');
-if(bookingForm){
-  bookingForm.addEventListener('submit', async(e)=>{
-    e.preventDefault();
-    const formData = {
-      name:e.target.name.value,
-      email:e.target.email.value,
-      service:e.target.service.value,
-      date:e.target.date.value,
-      time:e.target.time.value,
-      message:e.target.message.value
-    };
-    try{
-      await fetch('/api/bookings',{
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body:JSON.stringify(formData)
-      });
-      alert('✅ Booking saved!');
-      e.target.reset();
-    }catch(err){
-      alert('❌ Error sending booking');
-    }
-  });
+  const btn = document.getElementById("modeBtn");
+
+  if(document.body.classList.contains("light-mode")){
+    btn.textContent = "☀️";
+  } else {
+    btn.textContent = "🌙";
+  }
 }
-
-// =====================
-// Scroll to contact
-// =====================
-function scrollToContact(){ document.getElementById('contact').scrollIntoView({behavior:'smooth'}); }

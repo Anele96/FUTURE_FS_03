@@ -21,33 +21,14 @@ document.getElementById("bookingForm")?.addEventListener("submit", async (e)=>{
 });
 
 /* LIKE SYSTEM */
-async function toggleLike(imageId, imagePath, btn){
+function toggleLike(imageId, imagePath, btn){
+  const heart = btn.querySelector(".heart");
 
-  try{
-    const email = prompt("Enter email:");
-    if(!email) return;
+  heart.innerText = heart.innerText === "🤍" ? "❤️" : "🤍";
 
-    const heart = btn.querySelector(".heart");
-
-    heart.innerText = heart.innerText === "🤍" ? "❤️" : "🤍";
-
-    const res = await fetch("/api/likes", {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        userEmail: email,
-        imageId,
-        imagePath
-      })
-    });
-
-    if(!res.ok) throw new Error("Like failed");
-
-  }catch(err){
-    console.error(err);
-    alert("Like failed ❌");
-  }
+  alert("Liked ❤️)");
 }
+
 function toggleMode(){
   document.body.classList.toggle("light-mode");
 
